@@ -135,7 +135,7 @@
       "definition": "The practice of adversarially testing AI systems to find ways in which they can be induced to fail, leak or misbehave.",
       "domains": ["CYBERSECURITY", "AI"],
       "concept_type": "CAPABILITY",
-      "status": "CANDIDATE",
+      "status": "ACTIVE",
       "terminology_maturity": "EMERGING"
     }
   ],
@@ -169,13 +169,6 @@
       "candidates": ["security_operations_center"],
       "ambiguous": false,
       "notes": "Where appropriate, SOC is an alias of Security Operations Center rather than a separate concept."
-    },
-    {
-      "alias_id": "a_secops",
-      "surface_form": "SecOps",
-      "alias_type": "ABBREVIATION",
-      "candidates": ["security_operations_center"],
-      "ambiguous": false
     },
     {
       "alias_id": "a_soc_uk",
@@ -324,20 +317,12 @@
       "notes": "In-house and outsourced delivery models overlap, but graph connectivity must not become query expansion."
     },
     {
-      "relationship_id": "r_ai_red_teaming_may_provide_incident_response",
-      "from_concept_id": "ai_red_teaming",
-      "to_concept_id": "incident_response",
-      "relationship_type": "MAY_PROVIDE",
-      "search_policy": "NONE",
-      "notes": "Findings from adversarial testing may inform response work, but this is not an incident response offering and must never satisfy a requirement for it."
-    },
-    {
-      "relationship_id": "r_soc_uses_siem",
+      "relationship_id": "r_soc_may_use_siem",
       "from_concept_id": "security_operations_center",
       "to_concept_id": "security_information_and_event_management",
-      "relationship_type": "USES",
+      "relationship_type": "MAY_USE",
       "search_policy": "CONSERVATIVE",
-      "notes": "Typical but not universal; some functions use other tooling or none."
+      "notes": "A security operations function typically but not invariably relies on a SIEM. MAY_USE rather than USES because the dependency is common practice rather than definitional."
     },
     {
       "relationship_id": "r_iam_implements_authentication",
@@ -364,12 +349,12 @@
       "notes": "Non-human identities change the scope of identity governance but are not a component of it."
     },
     {
-      "relationship_id": "r_agent_uses_llm",
+      "relationship_id": "r_agent_may_use_llm",
       "from_concept_id": "artificial_intelligence_agent",
       "to_concept_id": "large_language_model",
-      "relationship_type": "USES",
-      "search_policy": "SAFE",
-      "notes": "Agents in the current generation are built on language models."
+      "relationship_type": "MAY_USE",
+      "search_policy": "CONSERVATIVE",
+      "notes": "Agents in the current generation are commonly built on language models, but the dependency is common practice rather than definitional and is shifting as other model classes emerge."
     },
     {
       "relationship_id": "r_agent_uses_mcp",

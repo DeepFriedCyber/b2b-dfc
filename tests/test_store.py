@@ -169,6 +169,16 @@ class TestAcronymsAreAliasesNotConcepts:
         assert alias.candidates == (concept.concept_id,)
         assert seed.get_concept("mdr") is None
 
+    def test_secops_alias_is_not_present(self, seed: Ontology):
+        """`SecOps` was withdrawn rather than mapped to a new concept."""
+        assert "SecOps" not in seed.alias_index()
+
+    def test_no_concept_was_added_for_the_withdrawn_alias(self, seed: Ontology):
+        labels = {c.preferred_label.lower() for c in seed.concepts}
+        ids = set(seed.concept_index())
+        assert "secops" not in labels
+        assert "secops" not in ids
+
 
 class TestAmbiguousAliasRepresentation:
     def test_mcp_is_an_abbreviation_with_ambiguity_flag(self, seed: Ontology):
@@ -189,25 +199,66 @@ class TestAmbiguousAliasRepresentation:
 
 
 class TestLifecycleInSeed:
-    def test_seed_exposes_non_canonical_concepts(self, seed: Ontology):
-        """The seed must exercise the lifecycle rule, not only ACTIVE rows."""
-        non_canonical = [
-            c for c in seed.concepts if not c.is_canonical()
-        ]
-        assert non_canonical, "seed should contain at least one non-ACTIVE concept"
-        assert all(
-            c.status is not ConceptStatus.ACTIVE for c in non_canonical
-        )
+    def test_ai_red_teaming_is_active(self, seed: Ontology):
+        """AI Red Teaming was promoted to a canonical, resolvable concept."""
+        concept = seed.get_concept("ai_red_teaming")
+        assert concept is not None
+        assert concept.status is ConceptStatus.ACTIVE
+        assert concept.is_canonical() is True
+        assert "ai_red_teaming" in seed.canonical_concept_ids()
 
-    def test_canonical_concepts_exclude_candidates(self, seed: Ontology):
-        canonical = set(seed.canonical_concept_ids())
-        candidate_ids = {
-            c.concept_id
-            for c in seed.concepts
-            if c.status is ConceptStatus.CANDIDATE
+    def test_seed_canonical_set_excludes_every_non_active_concept(self, seed: Ontology):
+        """Spec §4.2: only ACTIVE concepts may be treated as canonical.
+
+        This asserts the invariant against whatever the seed contains, so it
+        holds whether or not the seed currently includes a non-ACTIVE row.
+        """
+        non_active = {
+            c.concept_id for c in seed.concepts if c.status is not ConceptStatus.ACTIVE
         }
-        assert candidate_ids
-        assert canonical.isdisjoint(candidate_ids)
+        assert set(seed.canonical_concept_ids()).isdisjoint(non_active)
+
+    def test_seed_canonical_ids_match_is_canonical_filter(self, seed: Ontology):
+        assert set(seed.canonical_concept_ids()) == {
+            c.concept_id for c in seed.concepts if c.is_canonical()
+        }
+
+    def test_lifecycle_filter_excludes_non_active_concepts(self, tmp_path: Path):
+        """The lifecycle rule is enforced by the store, not by seed contents.
+
+        Uses a synthetic ontology so the safeguard cannot be lost if the seed
+        later contains only ACTIVE rows.
+        """
+        statuses = [
+            "ACTIVE",
+            "CANDIDATE",
+            "REJECTED",
+            "DEPRECATED",
+            "MERGED",
+        ]
+        payload = {
+            "concepts": [
+                {
+                    "concept_id": f"concept_{status.lower()}",
+                    "preferred_label": f"Concept {status.title()}",
+                    "definition": "Synthetic concept for lifecycle coverage.",
+                    "domains": ["AI"],
+                    "concept_type": "CONCEPT",
+                    "status": status,
+                    "terminology_maturity": "UNSETTLED",
+                }
+                for status in statuses
+            ],
+            "aliases": [],
+            "relationships": [],
+        }
+        path = tmp_path / "ontology.json"
+        path.write_text(json.dumps(payload), encoding="utf-8")
+
+        ontology = load_ontology(path)
+
+        assert ontology.canonical_concept_ids() == ("concept_active",)
+        assert "concept_candidate" not in ontology.canonical_concept_ids()
 
     def test_canonical_filter_ignores_terminology_maturity(self, seed: Ontology):
         """Spec §4.3: maturity is metadata and must not gate resolution."""
@@ -261,6 +312,46 @@ class TestRelationshipPolicies:
         assert edge.search_policy is not SearchPolicy.SAFE
         assert edge.from_concept_id == "managed_detection_and_response"
         assert edge.to_concept_id == "incident_response"
+
+    def test_soc_may_use_siem_is_hedged_not_definitive(self, seed: Ontology):
+        """SOC MAY_USE SIEM: common practice, not a definitional dependency."""
+        edge = seed.relationship_index()["r_soc_may_use_siem"]
+        assert edge.from_concept_id == "security_operations_center"
+        assert edge.to_concept_id == "security_information_and_event_management"
+        assert edge.relationship_type is RelationshipType.MAY_USE
+        assert edge.search_policy is not SearchPolicy.SAFE
+        assert edge.notes.strip()
+
+    def test_agent_may_use_llm_is_hedged_not_definitive(self, seed: Ontology):
+        """Agent MAY_USE LLM: common practice, not a definitional dependency."""
+        edge = seed.relationship_index()["r_agent_may_use_llm"]
+        assert edge.from_concept_id == "artificial_intelligence_agent"
+        assert edge.to_concept_id == "large_language_model"
+        assert edge.relationship_type is RelationshipType.MAY_USE
+        assert edge.search_policy is not SearchPolicy.SAFE
+        assert edge.notes.strip()
+
+    def test_no_definitive_use_edge_remains_for_hedged_pairs(self, seed: Ontology):
+        """The hedged pairs must not reappear as definitive USES edges."""
+        definitive_use = {
+            (r.from_concept_id, r.to_concept_id)
+            for r in seed.relationships
+            if r.relationship_type is RelationshipType.USES
+        }
+        assert ("security_operations_center", "security_information_and_event_management") not in definitive_use
+        assert ("artificial_intelligence_agent", "large_language_model") not in definitive_use
+
+    def test_ai_red_teaming_makes_no_incident_response_claim(self, seed: Ontology):
+        """AI Red Teaming must not carry a capability claim about incident response."""
+        claims = [
+            r
+            for r in seed.relationships
+            if r.from_concept_id == "ai_red_teaming"
+            and r.to_concept_id == "incident_response"
+            and r.relationship_type
+            in (RelationshipType.MAY_PROVIDE, RelationshipType.PROVIDES)
+        ]
+        assert claims == []
 
     def test_relationships_are_indexed_both_directions(self, seed: Ontology):
         outgoing = seed.relationships_from("managed_detection_and_response")
