@@ -1,0 +1,415 @@
+{
+  "schema_version": "0.0.1",
+  "milestone": "industry-intelligence-v0.01",
+  "description": "Deliberately small seed ontology (15 concepts) covering Security Operations, Identity, AI and AI Security. Concepts only: no companies, products or factual claims. See docs/industry-intelligence-v0.01.md section 10.",
+  "concepts": [
+    {
+      "concept_id": "security_operations_center",
+      "preferred_label": "Security Operations Center",
+      "definition": "An organisational function and operating model that continuously monitors, triages and responds to security events across an estate.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "CAPABILITY",
+      "status": "ACTIVE",
+      "terminology_maturity": "ESTABLISHED"
+    },
+    {
+      "concept_id": "managed_detection_and_response",
+      "preferred_label": "Managed Detection and Response",
+      "definition": "A commercially delivered service category in which a provider monitors and responds to security events on a customer's behalf.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "SERVICE_CATEGORY",
+      "status": "ACTIVE",
+      "terminology_maturity": "ESTABLISHED"
+    },
+    {
+      "concept_id": "endpoint_detection_and_response",
+      "preferred_label": "Endpoint Detection and Response",
+      "definition": "A product category that monitors activity on endpoints in order to detect and respond to malicious behaviour on hosts and devices.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "PRODUCT_CATEGORY",
+      "status": "ACTIVE",
+      "terminology_maturity": "ESTABLISHED"
+    },
+    {
+      "concept_id": "security_information_and_event_management",
+      "preferred_label": "Security Information and Event Management",
+      "definition": "A product category that aggregates and correlates security telemetry from across an environment to support detection, investigation and compliance reporting.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "PRODUCT_CATEGORY",
+      "status": "ACTIVE",
+      "terminology_maturity": "STABLE"
+    },
+    {
+      "concept_id": "incident_response",
+      "preferred_label": "Incident Response",
+      "definition": "The capability of preparing for, detecting, containing, eradicating and recovering from security incidents.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "CAPABILITY",
+      "status": "ACTIVE",
+      "terminology_maturity": "STABLE"
+    },
+    {
+      "concept_id": "identity_and_access_management",
+      "preferred_label": "Identity and Access Management",
+      "definition": "The discipline of governing digital identities and their access to systems, spanning authentication, authorisation, provisioning and lifecycle governance.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "DISCIPLINE",
+      "status": "ACTIVE",
+      "terminology_maturity": "ESTABLISHED"
+    },
+    {
+      "concept_id": "authentication",
+      "preferred_label": "Authentication",
+      "definition": "The capability of verifying that a subject is who or what it claims to be.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "CAPABILITY",
+      "status": "ACTIVE",
+      "terminology_maturity": "STABLE"
+    },
+    {
+      "concept_id": "multi_factor_authentication",
+      "preferred_label": "Multi-Factor Authentication",
+      "definition": "An authentication approach that requires two or more independent factors drawn from different classes of credential.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "CAPABILITY",
+      "status": "ACTIVE",
+      "terminology_maturity": "STABLE"
+    },
+    {
+      "concept_id": "non_human_identity",
+      "preferred_label": "Non-Human Identity",
+      "definition": "An identity held by a machine, workload, service or automation that authenticates and acts without a human principal behind it.",
+      "domains": ["CYBERSECURITY"],
+      "concept_type": "CONCEPT",
+      "status": "ACTIVE",
+      "terminology_maturity": "EMERGING"
+    },
+    {
+      "concept_id": "large_language_model",
+      "preferred_label": "Large Language Model",
+      "definition": "A machine-learning model trained on large quantities of text in order to generate and interpret language.",
+      "domains": ["AI"],
+      "concept_type": "TECHNOLOGY",
+      "status": "ACTIVE",
+      "terminology_maturity": "ESTABLISHED"
+    },
+    {
+      "concept_id": "artificial_intelligence_agent",
+      "preferred_label": "Artificial Intelligence Agent",
+      "definition": "A software system that uses a model to plan and take actions within an environment toward a goal, with some degree of autonomy.",
+      "domains": ["AI"],
+      "concept_type": "TECHNOLOGY",
+      "status": "ACTIVE",
+      "terminology_maturity": "EMERGING"
+    },
+    {
+      "concept_id": "model_context_protocol",
+      "preferred_label": "Model Context Protocol",
+      "definition": "An open protocol for connecting language-model applications to external tools, data sources and other systems.",
+      "domains": ["AI"],
+      "concept_type": "PROTOCOL",
+      "status": "ACTIVE",
+      "terminology_maturity": "EMERGING"
+    },
+    {
+      "concept_id": "prompt_injection",
+      "preferred_label": "Prompt Injection",
+      "definition": "A technique in which untrusted input is crafted to alter the instructions a language model or agent follows, producing unintended behaviour.",
+      "domains": ["CYBERSECURITY", "AI"],
+      "concept_type": "THREAT",
+      "status": "ACTIVE",
+      "terminology_maturity": "ESTABLISHED"
+    },
+    {
+      "concept_id": "mcp_security",
+      "preferred_label": "MCP Security",
+      "definition": "The discipline of securing Model Context Protocol deployments, covering server trust, tool authorisation and the transport of untrusted context.",
+      "domains": ["CYBERSECURITY", "AI"],
+      "concept_type": "DISCIPLINE",
+      "status": "ACTIVE",
+      "terminology_maturity": "EMERGING"
+    },
+    {
+      "concept_id": "ai_red_teaming",
+      "preferred_label": "AI Red Teaming",
+      "definition": "The practice of adversarially testing AI systems to find ways in which they can be induced to fail, leak or misbehave.",
+      "domains": ["CYBERSECURITY", "AI"],
+      "concept_type": "CAPABILITY",
+      "status": "CANDIDATE",
+      "terminology_maturity": "EMERGING"
+    }
+  ],
+  "aliases": [
+    {
+      "alias_id": "a_mdr",
+      "surface_form": "MDR",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["managed_detection_and_response"],
+      "ambiguous": false,
+      "notes": "Abbreviation of Managed Detection and Response. An acronym never earns its own concept."
+    },
+    {
+      "alias_id": "a_edr",
+      "surface_form": "EDR",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["endpoint_detection_and_response"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_siem",
+      "surface_form": "SIEM",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["security_information_and_event_management"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_soc",
+      "surface_form": "SOC",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["security_operations_center"],
+      "ambiguous": false,
+      "notes": "Where appropriate, SOC is an alias of Security Operations Center rather than a separate concept."
+    },
+    {
+      "alias_id": "a_secops",
+      "surface_form": "SecOps",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["security_operations_center"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_soc_uk",
+      "surface_form": "security operations centre",
+      "alias_type": "COMMON_NAME",
+      "candidates": ["security_operations_center"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_iam",
+      "surface_form": "IAM",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["identity_and_access_management"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_idam",
+      "surface_form": "IDAM",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["identity_and_access_management"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_mfa",
+      "surface_form": "MFA",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["multi_factor_authentication"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_2fa",
+      "surface_form": "2FA",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["multi_factor_authentication"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_nhi",
+      "surface_form": "NHI",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["non_human_identity"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_llm",
+      "surface_form": "LLM",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["large_language_model"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_llms_plural",
+      "surface_form": "large language models",
+      "alias_type": "COMMON_NAME",
+      "candidates": ["large_language_model"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_ai_agent",
+      "surface_form": "AI agent",
+      "alias_type": "COMMON_NAME",
+      "candidates": ["artificial_intelligence_agent"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_agentic_ai",
+      "surface_form": "agentic AI",
+      "alias_type": "COMMON_NAME",
+      "candidates": ["artificial_intelligence_agent"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_mcp",
+      "surface_form": "MCP",
+      "alias_type": "ABBREVIATION",
+      "candidates": ["model_context_protocol"],
+      "ambiguous": true,
+      "notes": "Competing real-world readings exist (Model Context Protocol, Microsoft Certification Program, Multi-Channel Publishing) but only one has a canonical concept in v0.01. MCP therefore cannot be resolved on lexical evidence alone and needs context or clarification. Ambiguity is a property of this record, not of the ABBREVIATION type."
+    },
+    {
+      "alias_id": "a_mcp_security_market_term",
+      "surface_form": "MCP security",
+      "alias_type": "MARKET_TERM",
+      "candidates": ["mcp_security"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_mdr_service",
+      "surface_form": "managed detection and response service",
+      "alias_type": "MARKET_TERM",
+      "candidates": ["managed_detection_and_response"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_ir_retainer",
+      "surface_form": "incident response retainer",
+      "alias_type": "MARKET_TERM",
+      "candidates": ["incident_response"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_prompt_injection_attack",
+      "surface_form": "prompt injection attack",
+      "alias_type": "COMMON_NAME",
+      "candidates": ["prompt_injection"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_llm_injection",
+      "surface_form": "LLM injection",
+      "alias_type": "MARKET_TERM",
+      "candidates": ["prompt_injection"],
+      "ambiguous": false
+    },
+    {
+      "alias_id": "a_ai_red_teaming",
+      "surface_form": "AI red teaming",
+      "alias_type": "COMMON_NAME",
+      "candidates": ["ai_red_teaming"],
+      "ambiguous": false
+    }
+  ],
+  "relationships": [
+    {
+      "relationship_id": "r_mdr_may_use_edr",
+      "from_concept_id": "managed_detection_and_response",
+      "to_concept_id": "endpoint_detection_and_response",
+      "relationship_type": "MAY_USE",
+      "search_policy": "DISCOVERY_ONLY",
+      "notes": "A managed service may or may not be built on endpoint tooling. This states a concept relationship only and does not establish that any provider does."
+    },
+    {
+      "relationship_id": "r_mdr_may_provide_incident_response",
+      "from_concept_id": "managed_detection_and_response",
+      "to_concept_id": "incident_response",
+      "relationship_type": "MAY_PROVIDE",
+      "search_policy": "DISCOVERY_ONLY",
+      "notes": "MAY_PROVIDE is not PROVIDES. This edge must never automatically satisfy a user requirement for incident response, nor imply that any vendor offers it."
+    },
+    {
+      "relationship_id": "r_mdr_related_soc",
+      "from_concept_id": "managed_detection_and_response",
+      "to_concept_id": "security_operations_center",
+      "relationship_type": "RELATED",
+      "search_policy": "NONE",
+      "notes": "In-house and outsourced delivery models overlap, but graph connectivity must not become query expansion."
+    },
+    {
+      "relationship_id": "r_ai_red_teaming_may_provide_incident_response",
+      "from_concept_id": "ai_red_teaming",
+      "to_concept_id": "incident_response",
+      "relationship_type": "MAY_PROVIDE",
+      "search_policy": "NONE",
+      "notes": "Findings from adversarial testing may inform response work, but this is not an incident response offering and must never satisfy a requirement for it."
+    },
+    {
+      "relationship_id": "r_soc_uses_siem",
+      "from_concept_id": "security_operations_center",
+      "to_concept_id": "security_information_and_event_management",
+      "relationship_type": "USES",
+      "search_policy": "CONSERVATIVE",
+      "notes": "Typical but not universal; some functions use other tooling or none."
+    },
+    {
+      "relationship_id": "r_iam_implements_authentication",
+      "from_concept_id": "identity_and_access_management",
+      "to_concept_id": "authentication",
+      "relationship_type": "IMPLEMENTS",
+      "search_policy": "CONSERVATIVE",
+      "notes": "Authentication is one pillar of the discipline, alongside authorisation and governance."
+    },
+    {
+      "relationship_id": "r_mfa_narrower_authentication",
+      "from_concept_id": "multi_factor_authentication",
+      "to_concept_id": "authentication",
+      "relationship_type": "NARROWER",
+      "search_policy": "SAFE",
+      "notes": "Taxonomic narrowing within authentication."
+    },
+    {
+      "relationship_id": "r_iam_related_non_human_identity",
+      "from_concept_id": "identity_and_access_management",
+      "to_concept_id": "non_human_identity",
+      "relationship_type": "RELATED",
+      "search_policy": "DISCOVERY_ONLY",
+      "notes": "Non-human identities change the scope of identity governance but are not a component of it."
+    },
+    {
+      "relationship_id": "r_agent_uses_llm",
+      "from_concept_id": "artificial_intelligence_agent",
+      "to_concept_id": "large_language_model",
+      "relationship_type": "USES",
+      "search_policy": "SAFE",
+      "notes": "Agents in the current generation are built on language models."
+    },
+    {
+      "relationship_id": "r_agent_uses_mcp",
+      "from_concept_id": "artificial_intelligence_agent",
+      "to_concept_id": "model_context_protocol",
+      "relationship_type": "USES",
+      "search_policy": "SAFE",
+      "notes": "Agents may connect to tools and data through MCP."
+    },
+    {
+      "relationship_id": "r_prompt_injection_affects_llm",
+      "from_concept_id": "prompt_injection",
+      "to_concept_id": "large_language_model",
+      "relationship_type": "AFFECTS",
+      "search_policy": "SAFE",
+      "notes": "Injected instructions alter model behaviour."
+    },
+    {
+      "relationship_id": "r_prompt_injection_affects_agent",
+      "from_concept_id": "prompt_injection",
+      "to_concept_id": "artificial_intelligence_agent",
+      "relationship_type": "AFFECTS",
+      "search_policy": "CONSERVATIVE",
+      "notes": "Impact depends on the agent's available tools and permissions; the severity varies."
+    },
+    {
+      "relationship_id": "r_mcp_security_mitigates_prompt_injection",
+      "from_concept_id": "mcp_security",
+      "to_concept_id": "prompt_injection",
+      "relationship_type": "MITIGATES",
+      "search_policy": "CONSERVATIVE",
+      "notes": "Server trust and tool authorisation reduce exposure, but do not eliminate injection risk."
+    },
+    {
+      "relationship_id": "r_mcp_security_affects_agent",
+      "from_concept_id": "mcp_security",
+      "to_concept_id": "artificial_intelligence_agent",
+      "relationship_type": "AFFECTS",
+      "search_policy": "DISCOVERY_ONLY",
+      "notes": "MCP hardening changes how an agent connects to external capability."
+    }
+  ]
+}
